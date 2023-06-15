@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'my_plant_app.plants',
-    'my_plant_app.common',
     'my_plant_app.accounts',
 
 ]
