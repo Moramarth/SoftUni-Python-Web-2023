@@ -6,8 +6,8 @@
         <h1>Are you sure you want to delete your profile?</h1>
 
         <!-- delete profile form -->
-        <form id='delete'>
-
+        <form id='delete' method="post">
+            {% csrf_token %}
             <!-- confirm button -->
             <input class="btn submit" type="submit" value="Delete">
         </form>
