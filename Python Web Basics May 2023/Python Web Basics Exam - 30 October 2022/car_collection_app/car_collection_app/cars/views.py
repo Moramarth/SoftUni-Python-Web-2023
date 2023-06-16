@@ -29,7 +29,6 @@ def car_details(request, pk):
 
 
 def edit_car(request, pk):
-    # check problem with hidden field population
     car = get_object_or_404(CarModel, pk=pk)
     form = CarCreateForm(initial=car.__dict__)
     if request.method == "POST":
