@@ -32,7 +32,10 @@ def edit_plant(request, pk):
     plant = get_object_or_404(Plant, pk=pk)
     form = PlantForm(initial=plant.__dict__)
     if request.method == "POST":
-        form = PlantForm(request.POST, instance=plant)
+        user = Profile.objects.first()
+        data = request.POST.copy()
+        data["belongs_to"] = user.pk
+        form = PlantForm(data, instance=plant)
         if form.is_valid():
             form.save()
             return redirect('catalogue')
