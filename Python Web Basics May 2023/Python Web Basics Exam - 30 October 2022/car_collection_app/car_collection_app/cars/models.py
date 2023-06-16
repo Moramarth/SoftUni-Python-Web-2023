@@ -1,6 +1,7 @@
 from django.core.validators import MinLengthValidator, MinValueValidator
 from django.db import models
 
+from car_collection_app.accounts.models import ProfileModel
 from car_collection_app.cars.validators import year_range_validation
 
 
@@ -20,3 +21,4 @@ class CarModel(models.Model):
     year = models.IntegerField(validators=[year_range_validation])
     image_url = models.URLField()
     price = models.FloatField(validators=[MinValueValidator(1)])
+    belongs_to = models.ForeignKey(ProfileModel, on_delete=models.CASCADE)
