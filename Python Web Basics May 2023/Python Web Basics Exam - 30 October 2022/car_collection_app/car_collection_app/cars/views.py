@@ -29,11 +29,14 @@ def car_details(request, pk):
 
 
 def edit_car(request, pk):
+    # check problem with hidden field population
     car = get_object_or_404(CarModel, pk=pk)
     form = CarCreateForm(initial=car.__dict__)
     if request.method == "POST":
-
-        form = CarCreateForm(request.POST, instance=car)
+        user = ProfileModel.objects.first()
+        data = request.POST.copy()
+        data["belongs_to"] = user.pk
+        form = CarCreateForm(data, instance=car)
         if form.is_valid():
             form.save()
             return redirect('display catalogue')

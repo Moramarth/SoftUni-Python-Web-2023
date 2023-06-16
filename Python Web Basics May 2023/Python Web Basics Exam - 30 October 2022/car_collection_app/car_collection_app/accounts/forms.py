@@ -12,3 +12,13 @@ class ProfileCreateForm(forms.ModelForm):
         widgets = {
             "password": forms.PasswordInput(),
         }
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = ProfileModel
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
