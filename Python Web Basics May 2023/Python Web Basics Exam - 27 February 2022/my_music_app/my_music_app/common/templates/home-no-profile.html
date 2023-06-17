@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 <!--Home Page-->
 <div class="container-inline">
     <section id="welcomePage">
@@ -6,7 +9,7 @@
             <h1>My Music App!</h1>
         </div>
         <div class="music-img">
-            <img src="/images/musicIcons.webp" alt="music-icon">
+            <img src="{% static 'images/musicIcons.webp' %}" alt="music-icon">
         </div>
     </section>
 
@@ -30,3 +33,4 @@
         </form>
     </section>
 </div>
+{% endblock %}
