@@ -1,4 +1,4 @@
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MinLengthValidator
 from django.db import models
 
 from my_music_app.accounts.validators import username_validation
@@ -8,6 +8,6 @@ from my_music_app.accounts.validators import username_validation
 
 
 class Profile(models.Model):
-    username = models.CharField(max_length=15, validators=[MinValueValidator(2), username_validation])
+    username = models.CharField(max_length=15, validators=[MinLengthValidator(2), username_validation])
     email = models.EmailField()
-    age = models.IntegerField(validators=[MinValueValidator(0)])
+    age = models.IntegerField(blank=True, null=True,validators=[MinValueValidator(0)])
