@@ -17,3 +17,7 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = "__all__"
+
+        widgets = {
+            "password": forms.PasswordInput(render_value=True),
+        }

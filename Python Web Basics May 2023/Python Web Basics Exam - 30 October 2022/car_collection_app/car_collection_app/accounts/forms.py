@@ -19,6 +19,6 @@ class ProfileEditForm(forms.ModelForm):
         model = ProfileModel
         fields = "__all__"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
+        widgets = {
+            "password": forms.PasswordInput(render_value=True),
+        }
