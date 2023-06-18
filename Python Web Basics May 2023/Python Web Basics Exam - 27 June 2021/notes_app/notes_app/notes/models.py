@@ -8,6 +8,6 @@ from notes_app.accounts.models import Profile
 
 class Note(models.Model):
     title = models.CharField(max_length=30)
-    image_url = models.URLField()
     content = models.TextField()
+    image_url = models.URLField()
     created_by = models.ForeignKey(Profile, on_delete=models.CASCADE)

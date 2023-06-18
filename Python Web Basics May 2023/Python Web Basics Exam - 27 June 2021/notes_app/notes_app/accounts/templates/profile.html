@@ -9,15 +9,15 @@
             <!--profile details container TODO-->
             <div class="note-container">
                 <h2>
-                    Mariya Ivanova
-                    <img src="https://www.nicepng.com/png/detail/249-2492113_work-profile-user-default-female-suit-comments-default.png" />
+                    {{ user.first_name}} {{ user.last_name }}
+                    <img src="{{ user.image_url}}" />
                 </h2>
-                <p>Age: 28</p>
+                <p>Age: {{ user.age }}</p>
                 <div>
-                    <p>All notes: 2</p>
+                    <p>All notes: {{ user.note_set.count }}</p>
                 </div>
                 <div class="right">
-                    <a class="button delete" href="/delete/4">Delete</a>
+                    <a class="button delete" href="{% url 'delete profile' %}">Delete</a>
                 </div>
             </div>
             <!--end profile details container-->
