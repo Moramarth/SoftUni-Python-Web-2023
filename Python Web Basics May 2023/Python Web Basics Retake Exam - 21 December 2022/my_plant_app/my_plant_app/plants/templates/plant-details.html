@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load filter %}
 {% block content %}
 
     <!-- details section -->
@@ -16,7 +15,7 @@
                 <!-- plant name -->
                 <p><span class="description-plant">Name:{{plant.name }}</span></p>
                 <!-- plant price -->
-                <p><span class="description-plant">Price: {{ plant.price | price_filter }}</span></p>
+                <p><span class="description-plant">Price: {{ plant.price | floatformat:2 }}</span></p>
                 <!-- plant description -->
                 <p><span class="description-plant">Description: {{ plant.description }}.</span></p>
             </div>
