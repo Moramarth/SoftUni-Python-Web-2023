@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load filter %}
 {% block content %}
 
     <!-- profile details section -->
@@ -28,7 +27,7 @@
                 <!-- user age -->
                 <p class="description">Age: {{ user.age }}</p>
                 <!-- total price of all cars -->
-                <p class="description">Total price: {{ total_car_price | price_filter }}</p>
+                <p class="description">Total price: {{ total_car_price | floatformat:3 }}</p>
                 <!-- Edit/Delete buttons -->
                 <div class="buttons">
                     <a href="{% url 'edit profile' %}" class="edit-button">Edit</a>

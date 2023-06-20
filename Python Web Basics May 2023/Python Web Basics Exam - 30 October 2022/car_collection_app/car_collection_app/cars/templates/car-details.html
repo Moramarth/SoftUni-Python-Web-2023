@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load filter %}
 {% block content %}
 
     <!-- details section -->
@@ -18,7 +17,7 @@
                 <!-- car year -->
                 <p><span class="description">Year: {{ car.year}}</span></p>
                 <!-- car price -->
-                <p><span class="description">Price: {{ car.price | price_filter }}</span></p>
+                <p><span class="description">Price: {{ car.price | floatformat:3 }}</span></p>
             </div>
 
 
