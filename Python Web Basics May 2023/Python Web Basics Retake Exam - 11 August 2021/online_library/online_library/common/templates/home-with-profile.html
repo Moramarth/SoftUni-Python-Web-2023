@@ -1,25 +1,28 @@
 {% extends "base.html" %}
+{% block page_title %}
+    Dashboard
+{% endblock %}
 {% block content %}
 
-        <!-- Dashboard Page-->
-        <section id="dashboard-page" class="dashboard">
-            <h1>Dashboard</h1>
-             <!-- Display paragraph: If the user doesn't have any books  -->
-            {% if not user.book_set.all %}
+    <!-- Dashboard Page-->
+    <section id="dashboard-page" class="dashboard">
+        <h1>Dashboard</h1>
+        <!-- Display paragraph: If the user doesn't have any books  -->
+        {% if not user.book_set.all %}
             <p class="no-books">No books in database!</p>
-            <!-- Display ul: with list-items for every books if any -->
-            {% else %}
+            <!-- Display ul: with list-items for every book if any -->
+        {% else %}
             <ul class="my-books-list">
-            {% for book in user.book_set.all %}
-                <li class="myBooks">
-                            <h3>{{ book.title }}</h3>
-                            <p>Type: {{ book.book_type }}</p>
-                            <p class="img"><img src="{{ book.image}}" alt=""></p>
-                            <a class="button" href="{% url 'book details' book.pk %}">Details</a>
-                </li>
-            {% endfor %}
+                {% for book in user.book_set.all %}
+                    <li class="myBooks">
+                        <h3>{{ book.title }}</h3>
+                        <p>Type: {{ book.book_type }}</p>
+                        <p class="img"><img src="{{ book.image }}" alt=""></p>
+                        <a class="button" href="{% url 'book details' book.pk %}">Details</a>
+                    </li>
+                {% endfor %}
             </ul>
         {% endif %}
-        </section>
+    </section>
 {% endblock %}
 

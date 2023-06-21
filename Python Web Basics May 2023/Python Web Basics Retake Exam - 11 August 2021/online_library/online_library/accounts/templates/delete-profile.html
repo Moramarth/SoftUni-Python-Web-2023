@@ -1,14 +1,17 @@
 {% extends "base.html" %}
+{% block page_title %}
+    Delete Profile
+{% endblock %}
 {% block content %}
 
-        <!-- Edit Profile Page -->
-        <section id="edit-profile-page" class="edit">
-            <form id="edit-form" action="#" method="post">
-                <fieldset>
-                    {% csrf_token %}
-                    {{ form }}
-                    <input class="button submit" type="submit" value="Delete">
-                </fieldset>
-            </form>
-        </section>
+    <!-- Edit Profile Page -->
+    <section id="edit-profile-page" class="edit">
+        <form id="edit-form" action="#" method="post">
+            <fieldset>
+                {% csrf_token %}
+                {{ form }}
+                <input class="button submit" type="submit" value="Delete">
+            </fieldset>
+        </form>
+    </section>
 {% endblock %}
