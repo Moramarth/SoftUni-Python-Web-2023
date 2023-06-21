@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from games_play_app.accounts.forms import ProfileForm, ProfileEditForm
-from games_play_app.accounts.models import Profile
+from games_play_app.common.templatetags.tags import profile_status
 
 
 # Create your views here.
@@ -23,13 +23,12 @@ def create_profile(request):
 
 
 def profile_details(request):
-    user = Profile.objects.first()
+    user = profile_status()
     if user.game_set.all():
         average_rating = sum([game.rating for game in user.game_set.all()]) / user.game_set.count()
     else:
         average_rating = 0
     context = {
-        "user": user,
         "average_rating": average_rating
     }
 
@@ -37,8 +36,8 @@ def profile_details(request):
 
 
 def edit_profile(request):
-    user = Profile.objects.first()
-    form = ProfileEditForm(initial=user.__dict__)
+    user = profile_status()
+    form = ProfileEditForm(instance=user)
     if request.method == "POST":
         form = ProfileEditForm(request.POST, instance=user)
         if form.is_valid():
@@ -49,7 +48,7 @@ def edit_profile(request):
 
 
 def delete_profile(request):
-    user = Profile.objects.first()
+    user = profile_status()
     if request.method == "POST":
         user.delete()
         return redirect('home page')

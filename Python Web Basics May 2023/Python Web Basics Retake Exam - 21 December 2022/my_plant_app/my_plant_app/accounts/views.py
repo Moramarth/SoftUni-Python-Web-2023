@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from my_plant_app.accounts.forms import ProfileForm, ProfileEditForm
 from my_plant_app.accounts.models import Profile
+from my_plant_app.common.templatetags.tags import profile_status
 
 
 # Create your views here.
@@ -17,20 +18,17 @@ def create_profile(request):
 
     context = {
         "form": form,
-        "user": None
         }
     return render(request, "create-profile.html", context=context)
 
 
 def profile_details(request):
-    user = Profile.objects.first()
-    context = {"profile": user}
-    return render(request, "profile-details.html", context=context)
+    return render(request, "profile-details.html")
 
 
 def edit_profile(request):
-    user = Profile.objects.first()
-    form = ProfileEditForm(initial=user.__dict__, instance=user)
+    user = profile_status()
+    form = ProfileEditForm(instance=user)
     if request.method == "POST":
         form = ProfileEditForm(request.POST, instance=user)
         if form.is_valid():
@@ -41,7 +39,7 @@ def edit_profile(request):
 
 
 def delete_profile(request):
-    user = Profile.objects.first()
+    user = profile_status()
     if request.method == "POST":
         user.delete()
         return redirect('home page')

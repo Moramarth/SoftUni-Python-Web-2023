@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block page_title %}
+    Game Details
+{% endblock %}
 {% block content %}
 
     <!-- details section -->
@@ -8,22 +11,22 @@
             <div class="game-header">
                 <!-- game image -->
                 <img class="game-img"
-                     src="{{ game.image_url}}"
+                     src="{{ game.image_url }}"
                      alt='game image'/>
                 <!-- title and rating -->
                 <h1>{{ game.title }} <span class="levels">Rating: {{ game.rating }}</span></h1>
                 <!-- game category -->
-                <p><span class="type">Category: {{ game.category}}</span></p>
+                <p><span class="type">Category: {{ game.category }}</span></p>
                 <!-- game max level (if any) -->
                 {% if game.max_level %}
-                <p><span class="type">Max Level: {{ game.max_level }}</span></p>
+                    <p><span class="type">Max Level: {{ game.max_level }}</span></p>
                 {% endif %}
             </div>
             {% if game.summary %}
-            <!-- game summary (if any)-->
-            <p class="text">
-                {{ game.summary}}
-            </p>
+                <!-- game summary (if any)-->
+                <p class="text">
+                    {{ game.summary }}
+                </p>
             {% endif %}
 
             <!-- Edit/Delete buttons -->

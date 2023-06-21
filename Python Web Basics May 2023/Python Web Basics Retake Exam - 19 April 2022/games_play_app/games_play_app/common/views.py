@@ -7,12 +7,8 @@ from games_play_app.accounts.models import Profile
 
 
 def home_page(request):
-    user = Profile.objects.first() or None
-    context = {"user": user}
-    return render(request, 'home-page.html', context=context)
+    return render(request, 'home-page.html')
 
 
 def display_dashboard(request):
-    user = Profile.objects.first()
-    context = {"user": user}
-    return render(request, 'dashboard.html', context=context)
+    return render(request, 'dashboard.html')

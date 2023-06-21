@@ -30,12 +30,9 @@ def plant_details(request, pk):
 
 def edit_plant(request, pk):
     plant = get_object_or_404(Plant, pk=pk)
-    form = PlantForm(initial=plant.__dict__)
+    form = PlantForm(instance=plant)
     if request.method == "POST":
-        user = Profile.objects.first()
-        data = request.POST.copy()
-        data["belongs_to"] = user.pk
-        form = PlantForm(data, instance=plant)
+        form = PlantForm(request.POST, instance=plant)
         if form.is_valid():
             form.save()
             return redirect('catalogue')
@@ -45,7 +42,7 @@ def edit_plant(request, pk):
 
 def delete_plant(request, pk):
     plant = get_object_or_404(Plant, pk=pk)
-    form = PlantDeleteForm(initial=plant.__dict__, instance=plant)
+    form = PlantDeleteForm(instance=plant)
     if request.method == "POST":
         plant.delete()
         return redirect('catalogue')

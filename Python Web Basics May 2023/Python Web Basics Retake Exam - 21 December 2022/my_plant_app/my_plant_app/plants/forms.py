@@ -4,9 +4,6 @@ from my_plant_app.plants.models import Plant
 
 
 class PlantForm(forms.ModelForm):
-
-    plant_type = forms.ChoiceField(choices=Plant.TYPE_CHOICES, label="Type")
-
     class Meta:
         model = Plant
         fields = [
@@ -21,8 +18,7 @@ class PlantForm(forms.ModelForm):
 
 
 class PlantDeleteForm(PlantForm):
-    def __init__(self,*args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for (_, field) in self.fields.items():
+        for field in self.fields.values():
             field.widget.attrs["disabled"] = "disabled"
-            field.widget.attrs["readonly"] = "readonly"

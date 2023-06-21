@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block page_title %}
+    Create Profile
+{% endblock %}
 {% block content %}
 
 
@@ -9,7 +12,7 @@
                 <h1>Create Profile</h1>
 
                 {% csrf_token %}
-                {{   form.as_p }}
+                {{ form.as_p }}
 
                 <input class="btn submit" type="submit" value="Create Profile">
             </div>

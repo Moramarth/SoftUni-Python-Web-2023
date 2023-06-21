@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block page_title %}
+    Plant Details
+{% endblock %}
 {% block content %}
 
     <!-- details section -->
@@ -8,12 +11,12 @@
             <div class="plant-header">
                 <!-- plant image -->
                 <img class="plant-img"
-                     src="{{ plant.image_url}}"
+                     src="{{ plant.image_url }}"
                      alt='plant image'/>
                 <!-- plant type -->
                 <h1>{{ plant.plant_type }}</h1>
                 <!-- plant name -->
-                <p><span class="description-plant">Name:{{plant.name }}</span></p>
+                <p><span class="description-plant">Name:{{ plant.name }}</span></p>
                 <!-- plant price -->
                 <p><span class="description-plant">Price: {{ plant.price | floatformat:2 }}</span></p>
                 <!-- plant description -->

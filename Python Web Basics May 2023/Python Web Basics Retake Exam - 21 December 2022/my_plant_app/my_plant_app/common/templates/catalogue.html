@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
+{% block page_title %}
+    Catalogue
+{% endblock %}
 {% block content %}
-    {% if not plants %}
-    <!-- Display paragraph: If there are no plants yet-->
+    {% if not user.plant_set.all %}
+        <!-- Display paragraph: If there are no plants yet-->
         <p class="no-articles">No plants yet</p>
     {% else %}
-    <!-- Display div "plant" with information about every plant (if any)-->
+        <!-- Display div "plant" with information about every plant (if any)-->
         <section id="catalogue">
-        {% for plant in plants %}
+            {% for plant in user.plant_set.all %}
                 <!-- first plant-->
                 <div class="plant-card">
                     <div class="image-wrap">
                         <!-- plant image -->
-                        <img src="{{plant.image_url}}"
+                        <img src="{{ plant.image_url }}"
                              alt="Indoor Plants">
                     </div>
                     <!-- plant name -->
@@ -26,7 +29,7 @@
                         <a href="{% url 'plant details' plant.pk %}" class="details-btn">Details</a>
                     </div>
                 </div>
-        {% endfor %}
+            {% endfor %}
         </section>
-    {%  endif %}
+    {% endif %}
 {% endblock %}

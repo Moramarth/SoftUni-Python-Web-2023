@@ -30,12 +30,9 @@ def game_details(request, pk):
 
 def edit_game(request, pk):
     game = get_object_or_404(Game, pk=pk)
-    form = GameForm(initial=game.__dict__)
+    form = GameForm(instance=game)
     if request.method == "POST":
-        user = Profile.objects.first()
-        data = request.POST.copy()
-        data["created_by"] = user.pk
-        form = GameForm(data, instance=game)
+        form = GameForm(request.POST, instance=game)
         if form.is_valid():
             form.save()
             return redirect("display dashboard")
@@ -45,7 +42,7 @@ def edit_game(request, pk):
 
 def delete_game(request, pk):
     game = get_object_or_404(Game, pk=pk)
-    form = GameDeleteForm(initial=game.__dict__, instance=game)
+    form = GameDeleteForm(instance=game)
     if request.method == "POST":
         game.delete()
         return redirect('display dashboard')
