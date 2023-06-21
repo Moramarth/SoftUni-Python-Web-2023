@@ -3,13 +3,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from my_music_app.accounts.models import Profile
 from my_music_app.albums.forms import AlbumForm, AlbumDeleteForm
 from my_music_app.albums.models import Album
+from my_music_app.common.templatetags.tags import profile_status
 
 
 # Create your views here.
 
 
 def add_album(request):
-    user = Profile.objects.first()
+    user = profile_status()
     form = AlbumForm()
     if request.method == "POST":
         data = request.POST.copy()
@@ -30,13 +31,10 @@ def album_details(request, pk):
 
 
 def edit_album(request, pk):
-    user = Profile.objects.first()
     album = get_object_or_404(Album, pk=pk)
-    form = AlbumForm(initial=album.__dict__)
+    form = AlbumForm(instance=album)
     if request.method == "POST":
-        data = request.POST.copy()
-        data["created_by"] = user.pk
-        form = AlbumForm(data, instance=album)
+        form = AlbumForm(request.POST, instance=album)
         if form.is_valid():
             form.save()
             return redirect('home page')
@@ -47,7 +45,7 @@ def edit_album(request, pk):
 
 def delete_album(request, pk):
     album = get_object_or_404(Album, pk=pk)
-    form = AlbumDeleteForm(initial=album.__dict__, instance=album)
+    form = AlbumDeleteForm(instance=album)
     if request.method == "POST":
         album.delete()
         return redirect("home page")
