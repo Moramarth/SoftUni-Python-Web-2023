@@ -2,7 +2,6 @@ from django.urls import path, include
 
 from .views import car_details, create_car, edit_car, delete_car
 
-
 urlpatterns = [
     path("create/", create_car, name="create car"),
     path("<int:pk>/", include([

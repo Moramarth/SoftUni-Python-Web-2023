@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from car_collection_app.accounts.models import ProfileModel
 from car_collection_app.cars.forms import CarCreateForm, CarDeleteForm
 from car_collection_app.cars.models import CarModel
+from car_collection_app.common.templatetags.tags import profile_data
 
 
 # Create your views here.
@@ -11,7 +11,7 @@ from car_collection_app.cars.models import CarModel
 def create_car(request):
     form = CarCreateForm()
     if request.method == "POST":
-        user = ProfileModel.objects.first()
+        user = profile_data()
         data = request.POST.copy()
         data["belongs_to"] = user.pk
         form = CarCreateForm(data)
@@ -30,9 +30,9 @@ def car_details(request, pk):
 
 def edit_car(request, pk):
     car = get_object_or_404(CarModel, pk=pk)
-    form = CarCreateForm(initial=car.__dict__)
+    form = CarCreateForm(instance=car)
     if request.method == "POST":
-        user = ProfileModel.objects.first()
+        user = profile_data()
         data = request.POST.copy()
         data["belongs_to"] = user.pk
         form = CarCreateForm(data, instance=car)
@@ -45,7 +45,7 @@ def edit_car(request, pk):
 
 def delete_car(request, pk):
     car = get_object_or_404(CarModel, pk=pk)
-    form = CarDeleteForm(initial=car.__dict__, instance=car)
+    form = CarDeleteForm(instance=car)
     if request.method == "POST":
         car.delete()
         return redirect('display catalogue')

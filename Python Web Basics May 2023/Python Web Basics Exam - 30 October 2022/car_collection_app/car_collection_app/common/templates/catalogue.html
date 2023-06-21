@@ -1,31 +1,36 @@
 {% extends 'base.html' %}
+{% load tags %}
+{% block page_title %}
+    Catalogue
+{% endblock %}
 {% block content %}
-    {% if not user.carmodel_set %}
-    <!-- Display paragraph: If there are no cars yet-->
+    {% profile_data as user %}
+    {% if not user.carmodel_set.all %}
+        <!-- Display paragraph: If there are no cars yet-->
         <p class="no-articles">No cars yet</p>
     {% else %}
         <!-- Display div "car" with information about every car (if any)-->
 
         <section id="catalogue">
-            <h1>Total cars: {{ user.carmodel_set.count }}</h1>
-            {% for car in user.carmodel_set.all %}
-                <!-- first car-->
-                <div class="car-card">
-                    <div class="image-wrap">
-                        <!-- car image -->
-                        <img src="{{ car.image_url }}"
-                             alt="Sport Car">
-                    </div>
-                    <!-- car type -->
-                    <h3>{{ car.car_type }}</h3>
-                    <!-- car model -->
-                    <h1>{{  car.model }}</h1>
-                    <div class="details-buttons">
-                        <!-- car details button -->
-                        <a href="{% url 'car details' car.pk %}" class="details-btn">Details</a>
-                    </div>
+        <h1>Total cars: {{ user.carmodel_set.count }}</h1>
+        {% for car in user.carmodel_set.all %}
+            <!-- first car-->
+            <div class="car-card">
+                <div class="image-wrap">
+                    <!-- car image -->
+                    <img src="{{ car.image_url }}"
+                         alt="Sport Car">
                 </div>
-            {% endfor %}
-            {% endif %}
-        </section>
+                <!-- car type -->
+                <h3>{{ car.car_type }}</h3>
+                <!-- car model -->
+                <h1>{{ car.model }}</h1>
+                <div class="details-buttons">
+                    <!-- car details button -->
+                    <a href="{% url 'car details' car.pk %}" class="details-btn">Details</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</section>
 {% endblock %}

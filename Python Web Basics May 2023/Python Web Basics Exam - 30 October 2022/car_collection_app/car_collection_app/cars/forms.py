@@ -19,8 +19,7 @@ class CarCreateForm(forms.ModelForm):
 
 
 class CarDeleteForm(CarCreateForm):
-    def __init__(self,*args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for (_, field) in self.fields.items():
+        for field in self.fields.values():
             field.widget.attrs["disabled"] = "disabled"
-            field.widget.attrs["readonly"] = "readonly"
