@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from notes_app.accounts.models import Profile
+from notes_app.common.templatetags.tags import profile_status
 from notes_app.notes.forms import NoteForm, NoteDeleteForm
 from notes_app.notes.models import Note
 
@@ -11,7 +11,7 @@ from notes_app.notes.models import Note
 def add_note(request):
     form = NoteForm()
     if request.method == "POST":
-        user = Profile.objects.first()
+        user = profile_status()
         data = request.POST.copy()
         data["created_by"] = user.pk
         form = NoteForm(data)
@@ -24,13 +24,9 @@ def add_note(request):
 
 def edit_note(request, pk):
     note = get_object_or_404(Note, pk=pk)
-    form = NoteForm(initial=note.__dict__)
-
+    form = NoteForm(instance=note)
     if request.method == "POST":
-        user = Profile.objects.first()
-        data = request.POST.copy()
-        data["created_by"] = user.pk
-        form = NoteForm(data, instance=note)
+        form = NoteForm(request.POST, instance=note)
         if form.is_valid():
             form.save()
             return redirect("home_page")
@@ -40,7 +36,7 @@ def edit_note(request, pk):
 
 def delete_note(request, pk):
     note = get_object_or_404(Note, pk=pk)
-    form = NoteDeleteForm(initial=note.__dict__, instance=note)
+    form = NoteDeleteForm(instance=note)
     if request.method == "POST":
         note.delete()
         return redirect("home_page")

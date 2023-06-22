@@ -1,41 +1,47 @@
 {% load static %}
+{% load tags %}
+{% profile_status as user %}
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}" />
-        <title>Notes</title>
-    </head>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"/>
+    <title>
+        {% block page_title %}
+            Notes
+        {% endblock %}
+    </title>
+</head>
 
-    <body>
-        <!--navigation bar-->
-        <header>
-            <nav>
-                {% if not user %}
-                <ul>
-                    <li class="img"><img src="{%  static '/images/note.png' %}" width="32" height="32"  alt=""/></li>
+<body>
+<!--navigation bar-->
+<header>
+    <nav>
+        {% if not user %}
+            <ul>
+                <li class="img"><img src="{% static '/images/note.png' %}" width="32" height="32" alt=""/></li>
 
-                    <li><a href="{% url 'home_page' %}">Notes</a></li>
-                </ul>
-                {% else %}
-                <ul>
-                    <li class="img"><img src="{%  static '/images/note.png' %}"  alt=""/></li>
-                    <li><a href="{% url 'home_page' %}">Notes</a></li>
-                    <li class="right">
-                        <a href="{% url 'add note' %}">Add Note</a>
-                        <a href="{% url 'profile details' %}">Profile</a>
-                    </li>
-                </ul>
-                {% endif %}
-            </nav>
-        </header>
-        <!--end navigation bar-->
-    {% block content %}
-    {% endblock %}
+                <li><a href="{% url 'home_page' %}">Notes</a></li>
+            </ul>
+        {% else %}
+            <ul>
+                <li class="img"><img src="{% static '/images/note.png' %}" alt=""/></li>
+                <li><a href="{% url 'home_page' %}">Notes</a></li>
+                <li class="right">
+                    <a href="{% url 'add note' %}">Add Note</a>
+                    <a href="{% url 'profile details' %}">Profile</a>
+                </li>
+            </ul>
+        {% endif %}
+    </nav>
+</header>
+<!--end navigation bar-->
+{% block content %}
+{% endblock %}
 
-        <footer>
-            <div>Python Web Basics Exam @SoftUni</div>
-        </footer>
-    </body>
+<footer>
+    <div>Python Web Basics Exam @SoftUni</div>
+</footer>
+</body>
 </html>

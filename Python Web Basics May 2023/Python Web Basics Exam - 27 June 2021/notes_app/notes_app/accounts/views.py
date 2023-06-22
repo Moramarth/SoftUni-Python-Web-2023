@@ -1,18 +1,16 @@
 from django.shortcuts import render, redirect
 
-from notes_app.accounts.models import Profile
+from notes_app.common.templatetags.tags import profile_status
 
 
 # Create your views here.
 
 
 def profile_details(request):
-    user = Profile.objects.first()
-    context = {"user": user}
-    return render(request, "profile.html", context)
+    return render(request, "profile.html")
 
 
 def delete_profile(request):
-    user = Profile.objects.first()
+    user = profile_status()
     user.delete()
     return redirect('home_page')

@@ -26,7 +26,7 @@ def create_recipe(request):
 
 def edit_recipe(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
-    form = RecipeForm(initial=recipe.__dict__)
+    form = RecipeForm(instance=recipe)
     if request.method == "POST":
         form = RecipeForm(request.POST, instance=recipe)
         if form.is_valid():
@@ -38,7 +38,7 @@ def edit_recipe(request, pk):
 
 def delete_recipe(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
-    form = RecipeDeleteForm(initial=recipe.__dict__, instance=recipe)
+    form = RecipeDeleteForm(instance=recipe)
     if request.method == "POST":
         recipe.delete()
         return redirect("home page")
