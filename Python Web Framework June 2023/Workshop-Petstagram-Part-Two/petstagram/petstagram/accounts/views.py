@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import views as auth_views
@@ -26,7 +27,7 @@ class UserLogoutView(auth_views.LogoutView):
     next_page = reverse_lazy('login user')
 
 
-class UserEditView(views.UpdateView):
+class UserEditView(LoginRequiredMixin, views.UpdateView):
     model = PetstagramUser
     form_class = PetstagramUserEditForm
     template_name = 'accounts/profile-edit-page.html'
@@ -35,23 +36,28 @@ class UserEditView(views.UpdateView):
         return reverse_lazy('show profile details', kwargs={"pk": self.object.pk})
 
 
-class UserDeleteView(views.DeleteView):
+class UserDeleteView(LoginRequiredMixin, views.DeleteView):
     model = PetstagramUser
     template_name = 'accounts/profile-delete-page.html'
-    next_page = reverse_lazy('home page')
 
     def post(self, *args, pk):
         self.request.user.delete()
+        return redirect('home page')
 
 
-class UserDetailsView(views.DetailView):
+class UserDetailsView(LoginRequiredMixin, views.DetailView):
     model = PetstagramUser
     template_name = 'accounts/profile-details-page.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        total_likes_count = sum(p.like_set.count() for p in self.object.photo_set.all())
+        last_photo = self.object.photo_set.all().last()
+
+        context.update(
+            {
+                "total_likes_count": total_likes_count,
+                "last_photo": last_photo,
+            }
+        )
         return context
-
-
-
-

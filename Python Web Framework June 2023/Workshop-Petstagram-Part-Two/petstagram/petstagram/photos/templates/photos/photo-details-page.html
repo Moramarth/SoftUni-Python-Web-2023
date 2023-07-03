@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{%  block content %}
+{% block content %}
     <div class="container">
         <div class="col-9">
 
@@ -12,11 +12,15 @@
                     <div class="userDetails">
 
                         <!-- Link to User Profile Details Page-->
-                        <a href="#">
+                        <a href="{% url 'show profile details' photo.user.pk %}">
                             <div class="profilepic">
                                 <div class="profile_img">
                                     <div class="image">
-                                        <img src="{% static 'images/person.png' %}" alt="img8">
+                                        {% if photo.user.profile_picture %}
+                                            <img src="{{ photo.user.profile_picture }}" alt="img8">
+                                        {% else %}
+                                            <img src="{% static 'images/person.png' %}" alt="img8">
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -24,9 +28,9 @@
                         <h3>
 
                             <!-- Link to User Profile Details Page -->
-                            <a href="#">
+                            <a href="{% url 'show profile details' photo.user.pk %}">
                                 <!-- IF user has first name and last name -->
-                                Diyan Kalaydzhiev
+                                {{ photo.user.get_user_name }}
                                 <!-- else -->
                                 <!-- show user username -->
                             </a>
@@ -34,23 +38,26 @@
 
                             <!-- IF the photo has location -->
                             {% if photo.location %}
-                            <span>{{ photo.location}}</span>
+                                <span>{{ photo.location }}</span>
                             {% endif %}
 
                             <!-- IF the viewer is the creator of the photo -->
-                            <div class="edit-delete-btns">
+                            {% if request.user == photo.user %}
+                                <div class="edit-delete-btns">
 
-                                <!-- Link to Edit Pet Photo Page -->
-                                <a href="{% url 'edit photo' photo.pk %}">
-                                    <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
-                                         alt="edit button">
-                                </a>
+                                    <!-- Link to Edit Pet Photo Page -->
+                                    <a href="{% url 'edit photo' photo.pk %}">
+                                        <img class="edit-img" src="{% static 'images/edit-pen-icon-6.jpg' %}"
+                                             alt="edit button">
+                                    </a>
 
-                                <!-- Link to Delete Pet Photo Page -->
-                                <a href="{% url 'delete photo' photo.pk %}">
-                                    <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}" alt="bin button">
-                                </a>
-                            </div>
+                                    <!-- Link to Delete Pet Photo Page -->
+                                    <a href="{% url 'delete photo' photo.pk %}">
+                                        <img class="bin-img" src="{% static 'images/icon-remove-22.jpg' %}"
+                                             alt="bin button">
+                                    </a>
+                                </div>
+                            {% endif %}
                             <!-- End IF the viewer is the creator of the photo -->
 
                         </h3>
@@ -62,7 +69,7 @@
                 <!-- Start Pet Photo -->
                 <div class="imgBx" id="{{ photo.id }}">
                     <!-- Pet Photo -->
-                    <img src="{{ photo.photo.url}}" alt="post" class="cover">
+                    <img src="{{ photo.photo.url }}" alt="post" class="cover">
                 </div>
                 <!-- End Pet Photo -->
 
@@ -79,14 +86,14 @@
 									<a href="{% url 'like' photo.id %}">
 
 										<!-- IF user has liked the photo -->
-                                        {% if likes %}
-                                        <svg style="color: red"
-                                             xmlns="http://www.w3.org/2000/svg"
-                                             width="24"
-                                             height="24"
-                                             fill="currentColor"
-                                             class="bi bi-heart-fill"
-                                             viewBox="0 0 16 16">
+                                        {% if photo_is_liked_by_user %}
+                                            <svg style="color: red"
+                                                 xmlns="http://www.w3.org/2000/svg"
+                                                 width="24"
+                                                 height="24"
+                                                 fill="currentColor"
+                                                 class="bi bi-heart-fill"
+                                                 viewBox="0 0 16 16">
                                             <!-- Coordinate path -->
                                             <path fill-rule="evenodd"
                                                   d="M8 1.314C12.438-3.248 23.534 4.735
@@ -95,15 +102,15 @@
                                             </path>
                                         </svg>
 
-                                        <!-- IF NOT user has liked the photo -->
+                                            <!-- IF NOT user has liked the photo -->
                                         {% else %}
-                                        <svg aria-label="Like"
-                                             color="#262626"
-                                             fill="#262626"
-                                             height="24"
-                                             role="img"
-                                             viewBox="0 0 48 48"
-                                             width="24">
+                                            <svg aria-label="Like"
+                                                 color="#262626"
+                                                 fill="#262626"
+                                                 height="24"
+                                                 role="img"
+                                                 viewBox="0 0 48 48"
+                                                 width="24">
                                         {% endif %}
                                         <!-- Coordinate path -->
                                         <path d="M34.6 6.1c5.7 0 10.4 5.2 10.4
@@ -144,51 +151,55 @@
                     <!-- End Like and Share Buttons Section -->
 
                     <!-- Number of Likes for the Photo -->
-                    <p class="likes">{{ likes.count}}</p>
+                    <p class="likes">{{ likes.count }}</p>
 
                     <!-- Start Tagged Pets Section-->
                     {% for pet in photo.tagged_pets.all %}
-                    <!-- Link to First Tagged Pet Details Page -->
-                    <a href="{% url 'details pet' 'username' pet.slug %}">
-                        <p class="message">
-                            <b>{{ pet.name }}</b>
-                        </p>
-                    </a>
-                    <!-- End Tagged Pets Section-->
+                        <!-- Link to First Tagged Pet Details Page -->
+                        <a href="{% url 'details pet' pet.user.username pet.slug %}">
+                            <p class="message">
+                                <b>{{ pet.name }}</b>
+                            </p>
+                        </a>
+                        <!-- End Tagged Pets Section-->
                     {% endfor %}
                     <!-- Photo description -->
-                    <p class="pet-details">{{ photo.description}}</p>
+                    <p class="pet-details">{{ photo.description }}</p>
 
                     <!-- Date of Publication or edit of the Photo -->
-                    <h5 class="postTime">{{ photo.date_of_publication}}</h5>
+                    <h5 class="postTime">{{ photo.date_of_publication }}</h5>
 
                     <!-- Start Comments Section -->
                     {% for comment in comments %}
-                    <div class="comments">
-                        <div class="top">
-                            <div class="userDetails">
-                                <div class="comment-data">
-                                    <div class="profilepic">
-                                        <div class="profile_img">
-                                            <div class="image">
-                                                <!-- User Profile Image -->
-                                                <img src="{% static 'images/person.png' %}" alt="img8">
+                        <div class="comments">
+                            <div class="top">
+                                <div class="userDetails">
+                                    <div class="comment-data">
+                                        <div class="profilepic">
+                                            <div class="profile_img">
+                                                <div class="image">
+                                                    <!-- User Profile Image -->
+                                                    {% if comment.user.profile_picture %}
+                                                        <img src="{{ comment.user.profile_picture }}" alt="img8">
+                                                    {% else %}
+                                                        <img src="{% static 'images/person.png' %}" alt="img8">
+                                                    {% endif %}
+                                                </div>
                                             </div>
                                         </div>
+                                        <p>
+                                            <!-- Link to User Profile Details Page-->
+                                            <!-- User First and/or Last Name or username-->
+                                            <a href="{% url 'show profile details' comment.user.pk %}">{{ comment.user.get_user_name }}</a>
+                                            <!-- User Comment -->
+                                            {{ comment.text }}
+                                        </p>
                                     </div>
-                                    <p>
-                                        <!-- Link to User Profile Details Page-->
-                                        <!-- User First and/or Last Name or username-->
-                                        <a href="">Steven Ivanov</a>
-                                        <!-- User Comment -->
-                                        {{ comment.text}}
-                                    </p>
+                                    <span>{{ comment.date_time_of_publication }}</span>
                                 </div>
-                                <span>{{ comment.date_time_of_publication}}</span>
                             </div>
                         </div>
-                    </div>
-                    <!-- End Comments Section -->
+                        <!-- End Comments Section -->
                     {% endfor %}
                 </div>
 
