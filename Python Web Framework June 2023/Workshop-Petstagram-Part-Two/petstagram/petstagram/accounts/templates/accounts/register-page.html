@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{%  block content %}
+{% load custom_filters %}
+{% block content %}
 
     <!-- Start Register Section -->
     <div class="login-register-div">
@@ -7,14 +8,16 @@
             <h1>Petstagram</h1>
 
             <!-- Start Register Form -->
-            <form action="">
-                <input type="text" placeholder="Username">
-
-                <input type="email" placeholder="Email">
-
-                <input type="password" placeholder="Password">
-
-                <input type="password" placeholder="Repeat Password">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.username.errors }}
+                {{ form.username| placeholder:"Username" }}
+                {{ form.email.errors }}
+                {{ form.email| placeholder:"Email" }}
+                {{ form.password1.errors }}
+                {{ form.password2.errors }}
+                {{ form.password1| placeholder:"Password" }}
+                {{ form.password2 | placeholder:"Repeat password" }}
 
                 <!-- Register Button -->
                 <button type="submit">Register</button>
@@ -25,7 +28,7 @@
         <div class="second-option">
 
             <!-- Link to Login Page -->
-            <p>Have an account? <a href="#">Log in</a></p>
+            <p>Have an account? <a href="{% url 'login user' %}">Log in</a></p>
         </div>
     </div>
     <!-- End Register Section -->
