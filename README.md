@@ -18,3 +18,4 @@ Mini Projects and demos from the courses "Python Web Basics may 2023" and "Pyhon
 - [Python Web Framework June 2023](https://github.com/Moramarth/SoftUni-Python-Web-2023/tree/main/Python%20Web%20Framework%20June%202023)
   * Course homepage: https://softuni.bg/trainings/4110/python-web-framework-june-2023
   * [Workshop - Petstagram Part Two](https://github.com/Moramarth/SoftUni-Python-Web-2023/tree/main/Python%20Web%20Framework%20June%202023/Workshop-Petstagram-Part-Two/petstagram)
+  * [Final exam project](https://github.com/Moramarth/Maintenance-Management/tree/exam_state)
