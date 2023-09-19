@@ -4,6 +4,7 @@ Mini Projects and demos from the courses "Python Web Basics may 2023" and "Pyhon
 ## Table of content:
 - [Python Web Basics May 2023](https://github.com/Moramarth/SoftUni-Python-Web-2023/tree/main/Python%20Web%20Basics%20May%202023)
   * Course homepage: https://softuni.bg/trainings/4109/python-web-basics-may-2023
+  * [HTML and CSS mini course](https://github.com/Moramarth/SoftUni-Python-Web-2023/tree/main/Python%20Web%20Basics%20May%202023/HTML%20and%20CSS%20mini%20course/Introduction%20to%20HTML)
   * [Django introduction](https://github.com/Moramarth/SoftUni-Python-Web-2023/tree/main/Python%20Web%20Basics%20May%202023/django%20introduction)
   * [Demo Recipes App - Python Web Basics Exam - 01 November 2020](https://github.com/Moramarth/SoftUni-Python-Web-2023/tree/main/Python%20Web%20Basics%20May%202023/Python%20Web%20Basics%20Exam%20-%2001%20November%202020/recipes_app)
   * [Workshop - Petstagram](https://github.com/Moramarth/SoftUni-Python-Web-2023/tree/main/Python%20Web%20Basics%20May%202023/Workshop-Petstagram)
@@ -20,3 +21,5 @@ Mini Projects and demos from the courses "Python Web Basics may 2023" and "Pyhon
   * Course homepage: https://softuni.bg/trainings/4110/python-web-framework-june-2023
   * [Workshop - Petstagram Part Two](https://github.com/Moramarth/SoftUni-Python-Web-2023/tree/main/Python%20Web%20Framework%20June%202023/Workshop-Petstagram-Part-Two/petstagram)
   * [Final exam project](https://github.com/Moramarth/Maintenance-Management/tree/exam_state)
+ 
+  
