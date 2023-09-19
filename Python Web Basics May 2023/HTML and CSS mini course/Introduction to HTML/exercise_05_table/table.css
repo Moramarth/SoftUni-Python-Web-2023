@@ -1,0 +1,20 @@
+h2 {
+    font-size: 35px;
+}
+
+td {
+    text-align: right;
+}
+
+th,
+td {
+    padding: 5px;
+}
+
+table,
+tr,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
